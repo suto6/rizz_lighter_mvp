@@ -1,6 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:rizz_lighter_mvp/pages/intro.dart';
-
+// import 'package:dash_bubble/dash_bubble.dart';
 // Assuming these imports are correctly defined in your project
 import '../utils/app_constant.dart';
 import '../widgets/folderCarousel.dart';
@@ -16,22 +18,6 @@ class LighterHomePage extends StatelessWidget {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => const IntroPage()),
     );
-  }
-
-  // Placeholder functions for the new overlay controls (Implement actual logic here)
-  void _requestOverlayPermission() {
-    // TODO: Implement logic to open system settings for overlay/accessibility permissions
-    print("Requesting Overlay Permission...");
-  }
-
-  void _startBubble() {
-    // TODO: Implement logic to start the floating Octy widget service
-    print("Starting Floating Bubble Service...");
-  }
-
-  void _endBubble() {
-    // TODO: Implement logic to stop the floating Octy widget service
-    print("Stopping Floating Bubble Service...");
   }
 
   @override
@@ -138,7 +124,9 @@ class LighterHomePage extends StatelessWidget {
                         children: [
                           // 1. Request Permission Button
                           OutlinedButton(
-                            onPressed: _requestOverlayPermission,
+                            onPressed: (){
+                              // requestOverlayPermission();
+                              },
                             style: OutlinedButton.styleFrom(
                                 side: const BorderSide(color: AppColors.deepIndigo),
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -149,7 +137,22 @@ class LighterHomePage extends StatelessWidget {
 
                           // 2. Start Bubble Button
                           ElevatedButton(
-                            onPressed: _startBubble,
+                            onPressed: (){
+                              // startBubble(
+                              //   bubbleOptions: BubbleOptions(
+                              //     bubbleIcon: 'bubble_icon',
+                              //     bubbleSize: 140,
+                              //     enableClose: false,
+                              //     distanceToClose: 90,
+                              //     enableAnimateToEdge: true,
+                              //     enableBottomShadow: true,
+                              //     keepAliveWhenAppExit: false,
+                              //   ),
+                              //   onTab:(){
+                              //     logMessage(message:"Bubble start");
+                              //   }
+                              // );
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.lightNeonGreen,
                                 foregroundColor: AppColors.deepIndigo,
@@ -161,7 +164,9 @@ class LighterHomePage extends StatelessWidget {
 
                           // 3. End Bubble Button
                           ElevatedButton(
-                            onPressed: _endBubble,
+                            onPressed: (){
+                              // stopBubble();
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.deepIndigo,
                                 foregroundColor: AppColors.creamyOffWhite,
@@ -249,4 +254,44 @@ class LighterHomePage extends StatelessWidget {
       ),
     );
   }
+
+  // Future<void> requestOverlayPermission() async{
+  //   final isGranted = await DashBubble.instance.requestOverlayPermission();
+  //   if(isGranted == true){
+  //   print("Requesting Overlay Permission...");
+  //   }
+  //   else{
+  //     print("Permission is denied");
+  //   }
+  // }
+
+  // Future<void>startBubble({
+  //   BubbleOptions? bubbleOptions,
+  //   VoidCallback? onTab,
+  // }
+  // )async{
+  //   final hasStarted = await DashBubble.instance.startBubble(
+  //     bubbleOptions: bubbleOptions,
+  //     onTap: onTab,
+  //   );
+  //   if(hasStarted == true){
+  //     print("Bubble has started");
+  //   }
+  //   else{
+  //     print("Bubble hasn't started");
+  //   }
+  // }
+  // logMessage({required String message}){
+  //   log(message as num);
+  // }
+
+  // Future<void>stopBubble() async{
+  //   final hasStopped = await DashBubble.instance.startBubble();
+  //   if(hasStopped==true){
+  //     print("Bubble has stopped");
+  //   }
+  //   else{
+  //     print("Bubble hasn't stopped");
+  //   }
+  // }
 }
