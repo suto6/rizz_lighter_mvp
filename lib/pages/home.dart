@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:rizz_lighter_mvp/pages/intro.dart';
 // import 'package:dash_bubble/dash_bubble.dart';
 // Assuming these imports are correctly defined in your project
@@ -20,12 +21,30 @@ class LighterHomePage extends StatelessWidget {
     );
   }
 
+  void _startBubble() async {
+    FlutterOverlayWindow.showOverlay(
+      height: 100,
+      width: 100,
+      enableDrag: true,
+      alignment: OverlayAlignment.centerRight,
+      positionGravity: PositionGravity.auto,
+      flag: OverlayFlag.defaultFlag,
+    );
+  }
+
+  void _stopBubble() async {
+    if (await FlutterOverlayWindow.isActive()) {
+      FlutterOverlayWindow.closeOverlay();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Define the mascot size and padding constants
     const double mascotSize = 60.0;
     const double headerBottomRadius = 50.0;
-    const double expandedHeaderHeight = 220.0; // Adjusted for better visual balance
+    const double expandedHeaderHeight =
+        220.0; // Adjusted for better visual balance
 
     // Ensure AppColors is defined (assuming it's in app_constant.dart)
     // If not, use the fallback:
@@ -67,8 +86,12 @@ class LighterHomePage extends StatelessWidget {
                     width: mascotSize * 2, // Use a calculated size
                     height: mascotSize * 2,
                     errorBuilder: (context, error, stackTrace) {
-                        return const Icon(Icons.pets, size: 80, color: AppColors.deepIndigo);
-                    }
+                      return const Icon(
+                        Icons.pets,
+                        size: 80,
+                        color: AppColors.deepIndigo,
+                      );
+                    },
                   ),
                   const SizedBox(height: 5),
                   // Preview Clip Container (Content restored and aligned)
@@ -83,11 +106,7 @@ class LighterHomePage extends StatelessWidget {
                         color: AppColors.creamyOffWhite.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Row(
-                        children: [
-                          SizedBox(width: 8),
-                        ],
-                      ),
+                      child: const Row(children: [SizedBox(width: 8)]),
                     ),
                   ),
                   const Spacer(),
@@ -114,8 +133,12 @@ class LighterHomePage extends StatelessWidget {
                     // --- NEW: Overlay Control Buttons ---
                     const SizedBox(height: 10),
                     const Text(
-                        "Developer Controls:",
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.softCharcoal),
+                      "Developer Controls:",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.softCharcoal,
+                      ),
                     ),
                     const SizedBox(height: 5),
                     SingleChildScrollView(
@@ -124,55 +147,61 @@ class LighterHomePage extends StatelessWidget {
                         children: [
                           // 1. Request Permission Button
                           OutlinedButton(
-                            onPressed: (){
+                            onPressed: () {
                               // requestOverlayPermission();
-                              },
+                            },
                             style: OutlinedButton.styleFrom(
-                                side: const BorderSide(color: AppColors.deepIndigo),
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              side: const BorderSide(
+                                color: AppColors.deepIndigo,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 8,
+                              ),
                             ),
-                            child: const Text('Request Perm.', style: TextStyle(fontSize: 12, color: AppColors.deepIndigo)),
+                            child: const Text(
+                              'Request Perm.',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: AppColors.deepIndigo,
+                              ),
+                            ),
                           ),
                           const SizedBox(width: 8),
 
                           // 2. Start Bubble Button
                           ElevatedButton(
-                            onPressed: (){
-                              // startBubble(
-                              //   bubbleOptions: BubbleOptions(
-                              //     bubbleIcon: 'bubble_icon',
-                              //     bubbleSize: 140,
-                              //     enableClose: false,
-                              //     distanceToClose: 90,
-                              //     enableAnimateToEdge: true,
-                              //     enableBottomShadow: true,
-                              //     keepAliveWhenAppExit: false,
-                              //   ),
-                              //   onTab:(){
-                              //     logMessage(message:"Bubble start");
-                              //   }
-                              // );
-                            },
+                            onPressed: _startBubble,
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.lightNeonGreen,
-                                foregroundColor: AppColors.deepIndigo,
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              backgroundColor: AppColors.lightNeonGreen,
+                              foregroundColor: AppColors.deepIndigo,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 8,
+                              ),
                             ),
-                            child: const Text('Start Bubble', style: TextStyle(fontSize: 12)),
+                            child: const Text(
+                              'Start Bubble',
+                              style: TextStyle(fontSize: 12),
+                            ),
                           ),
                           const SizedBox(width: 8),
 
                           // 3. End Bubble Button
                           ElevatedButton(
-                            onPressed: (){
-                              // stopBubble();
-                            },
+                            onPressed: _startBubble,
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.deepIndigo,
-                                foregroundColor: AppColors.creamyOffWhite,
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              backgroundColor: AppColors.deepIndigo,
+                              foregroundColor: AppColors.creamyOffWhite,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 8,
+                              ),
                             ),
-                            child: const Text('End Bubble', style: TextStyle(fontSize: 12)),
+                            child: const Text(
+                              'End Bubble',
+                              style: TextStyle(fontSize: 12),
+                            ),
                           ),
                           // Extra space if needed
                           const SizedBox(width: 10),
@@ -181,7 +210,6 @@ class LighterHomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     // --- END NEW BUTTONS ---
-
 
                     // Search Bar is placed here to sit right under the collapsed header
                     const LighterSearchBar(),

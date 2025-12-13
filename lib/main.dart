@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:rizz_lighter_mvp/pages/home.dart';
 
 import 'pages/intro.dart';
 import 'utils/app_constant.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  if(!await FlutterOverlayWindow.isPermissionGranted()){
+    FlutterOverlayWindow.requestPermission();
+  }
   runApp(const MyApp());
+}
+
+// overlay entry point
+@pragma("vm:entry-point")
+void overlayMain() {
+  runApp(const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Material(child: Text("My overlay"))
+  ));
 }
 
 class MyApp extends StatelessWidget {
