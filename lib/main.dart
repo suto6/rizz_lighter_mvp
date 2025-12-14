@@ -20,6 +20,7 @@ void overlayMain() {
   runApp(const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: OverlayApp(),
+      
   ));
 }
 
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const IntroPage(),
+      home: const LighterHomePage(),
     );
   }
 }

@@ -10,9 +10,14 @@ import '../widgets/folderCarousel.dart';
 import '../widgets/recentClipCard.dart';
 import '../widgets/searchBar.dart'; // LighterSearchBar
 
-class LighterHomePage extends StatelessWidget {
+class LighterHomePage extends StatefulWidget {
   const LighterHomePage({super.key});
 
+  @override
+  State<LighterHomePage> createState() => _LighterHomePageState();
+}
+
+class _LighterHomePageState extends State<LighterHomePage> {
   // Note: The original function name was confusing. Renaming to clarify it goes back to IntroPage.
   void _navigateToIntroPage(BuildContext context) {
     // Navigates back to the intro/onboarding page (often used for re-requesting permissions).
@@ -37,6 +42,22 @@ class LighterHomePage extends StatelessWidget {
       FlutterOverlayWindow.closeOverlay();
     }
   }
+@override
+void initState() {
+  super.initState();
+
+  FlutterOverlayWindow.overlayListener.listen((event) {
+    if (event == "enable_highlight") {
+      _startHighlightMode();
+    }
+  });
+}
+void _startHighlightMode() {
+  debugPrint("Highlight mode triggered from overlay");
+
+  // NEXT STEP:
+  // Call Android Accessibility Service here using MethodChannel
+}
 
   @override
   Widget build(BuildContext context) {
@@ -282,44 +303,4 @@ class LighterHomePage extends StatelessWidget {
       ),
     );
   }
-
-  // Future<void> requestOverlayPermission() async{
-  //   final isGranted = await DashBubble.instance.requestOverlayPermission();
-  //   if(isGranted == true){
-  //   print("Requesting Overlay Permission...");
-  //   }
-  //   else{
-  //     print("Permission is denied");
-  //   }
-  // }
-
-  // Future<void>startBubble({
-  //   BubbleOptions? bubbleOptions,
-  //   VoidCallback? onTab,
-  // }
-  // )async{
-  //   final hasStarted = await DashBubble.instance.startBubble(
-  //     bubbleOptions: bubbleOptions,
-  //     onTap: onTab,
-  //   );
-  //   if(hasStarted == true){
-  //     print("Bubble has started");
-  //   }
-  //   else{
-  //     print("Bubble hasn't started");
-  //   }
-  // }
-  // logMessage({required String message}){
-  //   log(message as num);
-  // }
-
-  // Future<void>stopBubble() async{
-  //   final hasStopped = await DashBubble.instance.startBubble();
-  //   if(hasStopped==true){
-  //     print("Bubble has stopped");
-  //   }
-  //   else{
-  //     print("Bubble hasn't stopped");
-  //   }
-  // }
 }
