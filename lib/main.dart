@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
+import 'package:rizz_lighter_mvp/overlay/overlay.dart';
 import 'package:rizz_lighter_mvp/pages/home.dart';
 
 import 'pages/intro.dart';
@@ -18,7 +19,7 @@ void main() async{
 void overlayMain() {
   runApp(const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Material(child: Text("My overlay"))
+      home: OverlayApp(),
   ));
 }
 
